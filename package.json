@@ -1,0 +1,20 @@
+{
+  "name": "agent-bridge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local hub connecting AI agents (OpenCode, Hermes, FreeBuff, OpenHand, ...) with a JSON-over-WebSocket protocol plus a file-drop bridge for no-API programs.",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "bridge": "bin/bridge.js"
+  },
+  "scripts": {
+    "hub": "node hub/server.js",
+    "bridge": "node bin/bridge.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}
