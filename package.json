@@ -2,18 +2,43 @@
   "name": "agent-bridge",
   "version": "1.0.0",
   "private": true,
-  "description": "Local hub connecting AI agents (OpenCode, Hermes, FreeBuff, OpenHand, ...) with a JSON-over-WebSocket protocol plus a file-drop bridge for no-API programs.",
+  "description": "Local hub connecting AI agents (OpenCode, Hermes, Claude Desktop, Cursor, FreeBuff, OpenHand, ...) with a JSON-over-WebSocket protocol plus a file-drop bridge for no-API programs.",
   "type": "commonjs",
   "engines": {
     "node": ">=18"
   },
   "bin": {
-    "bridge": "bin/bridge.js"
+    "bridge": "bin/bridge.js",
+    "bridge-mcp": "mcp/server/index.js"
   },
   "scripts": {
     "hub": "node hub/server.js",
-    "bridge": "node bin/bridge.js"
+    "bridge": "node bin/bridge.js",
+    "mcp": "node mcp/server/index.js",
+    "test": "node test/smoke.js && node test/mcp-smoke.js",
+    "check": "node --check hub/server.js && node --check lib/client.js && node --check bin/bridge.js && node --check mcp/server/index.js"
   },
+  "keywords": [
+    "mcp",
+    "agent",
+    "ai",
+    "bridge",
+    "multi-agent",
+    "websocket",
+    "hermes",
+    "opencode",
+    "freebuff",
+    "openhand"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-saeedia/agent-bridge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/a-saeedia/agent-bridge/issues"
+  },
+  "homepage": "https://github.com/a-saeedia/agent-bridge#readme",
   "dependencies": {
     "ws": "^8.18.0"
   }

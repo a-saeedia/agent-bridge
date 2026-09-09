@@ -1,10 +1,44 @@
 {
   "name": "bridge-mcp",
   "version": "1.0.0",
-  "private": true,
   "type": "module",
-  "description": "MCP server exposing the local agent-bridge hub as tools so OpenCode/JARVIS can publish notes, delegate tasks to Hermes, list agents, and watch events.",
+  "description": "MCP server exposing a local agent-bridge hub as tools - plug ANY MCP-capable agent (OpenCode, Hermes, Claude Desktop, Cursor, Cline, Windsurf, ...) into a shared mesh of agents.",
   "main": "server/index.js",
+  "bin": {
+    "bridge-mcp": "server/index.js"
+  },
+  "files": [
+    "server/",
+    "README.md"
+  ],
+  "scripts": {
+    "start": "node server/index.js",
+    "check": "node --check server/index.js",
+    "smoke": "node ../test/mcp-smoke.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "agent",
+    "ai",
+    "bridge",
+    "multi-agent",
+    "websocket",
+    "hermes",
+    "opencode",
+    "claude"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/a-saeedia/agent-bridge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/a-saeedia/agent-bridge/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
     "jsonc-parser": "^3.3.1",

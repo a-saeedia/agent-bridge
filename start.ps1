@@ -11,20 +11,24 @@ if (Test-Path "$root\.env") {
   }
 }
 
+# node binary: BRIDGE_NODE env override, then PATH, then a known fallback.
+$node = $env:BRIDGE_NODE
+if (-not $node) { $node = (Get-Command node -ErrorAction SilentlyContinue).Source }
+if (-not $node) { $node = 'C:\Users\User\tools\node\node.exe' }
+
 function Start-Bg($name, $scriptPath) {
   Write-Host "[start] $name -> $scriptPath" -ForegroundColor Cyan
-  Start-Process -FilePath "C:\Users\User\tools\node\node.exe" `
-    -ArgumentList @($scriptPath) -WindowStyle Hidden -RedirectStandardOutput "$root\logs\$name.log" `
+  Start-Process -FilePath $node `
+    -ArgumentList @('"' + $scriptPath + '"') -WindowStyle Hidden -RedirectStandardOutput "$root\logs\$name.log" `
     -RedirectStandardError "$root\logs\$name.err.log"
 }
 
 New-Item -ItemType Directory -Force "$root\logs" | Out-Null
 
 # clean old logs
-Remove-Item "$root\logs\*" -ErrorAction SilentlyContinue
+Remove-Item "$root\logs\*" -Force -Recurse -ErrorAction SilentlyContinue
 
-$node = 'C:\Users\User\tools\node\node.exe'
-Start-Process -FilePath "$node" -ArgumentList @('hub\server.js') -WindowStyle Hidden `
+Start-Process -FilePath $node -ArgumentList @('"' + "$root\hub\server.js" + '"') -WindowStyle Hidden `
   -RedirectStandardOutput "$root\logs\hub.log" -RedirectStandardError "$root\logs\hub.err.log"
 Write-Host "[start] hub -> hub/server.js" -ForegroundColor Cyan
 

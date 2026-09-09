@@ -12,6 +12,7 @@
  *   BRIDGE_URL   (default ws://127.0.0.1:8177)
  *   BRIDGE_TOKEN (optional auth token)
  *   BRIDGE_ID    (default "opencode")
+ *   BRIDGE_AGENT (agent type advertised to the hub, default "opencode")
  */
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
@@ -21,6 +22,7 @@ import { z } from 'zod';
 const URL = process.env.BRIDGE_URL || 'ws://127.0.0.1:8177';
 const TOKEN = process.env.BRIDGE_TOKEN || '';
 const ID = process.env.BRIDGE_ID || 'opencode';
+const AGENT = process.env.BRIDGE_AGENT || 'opencode';
 
 /** Tiny promise-based WS client for the bridge wire protocol. */
 class Bridge {
@@ -34,7 +36,7 @@ class Bridge {
       const ws = new WebSocket(this.url);
       this.ws = ws;
       ws.on('open', () => {
-        ws.send(JSON.stringify({ v: 1, type: 'hello', id: this.id, agent: 'opencode', token: this.token, capabilities: ['all-topics'], topics: [] }));
+        ws.send(JSON.stringify({ v: 1, type: 'hello', id: this.id, agent: AGENT, token: this.token, capabilities: ['all-topics'], topics: [] }));
       });
       ws.on('message', (d) => this._route(JSON.parse(d.toString())));
       ws.on('error', reject);

@@ -25,6 +25,19 @@ an agent. Then any agent can:
 | OpenHand  | file-drop, or the `bridge` CLI | install later as needed |
 | any script | `bin/bridge.js` CLI | `publish`, `listen`, `rpc`, `list`, `ping` |
 | more agents | `adapters/worker.js` (1 file) | `BRIDGE_ID=agent-2 node adapters/worker.js` |
+| **any MCP host** | `mcp/server/index.js` (MCP server) | Claude Desktop, Cursor, Cline, Windsurf… see [docs/MCP.md](docs/MCP.md) |
+
+## Use it inside ANY agent (MCP)
+
+Claude Desktop, Cursor, Windsurf, Cline, OpenCode, Hermes — any MCP-capable host can join the
+mesh as a first-class agent with 4 tools (`bridge_list_agents`, `bridge_publish`,
+`bridge_rpc`, `bridge_ping`). Point the host at:
+
+```
+node path/to/agent-bridge/mcp/server/index.js
+```
+
+Full per-host configs live in [docs/MCP.md](docs/MCP.md).
 
 ## Quick start
 
